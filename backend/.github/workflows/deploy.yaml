@@ -1,0 +1,62 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Biome check (lint + format)
+        run: npx biome check .
+
+      - name: Create env file
+        run: |
+          echo "PORT=${{ secrets.BACKEND_PORT }}" >> .env
+          echo "APP_URL=${{ secrets.APP_URL }}" >> .env
+          echo "MONGO_URI=${{ secrets.MONGO_URI }}" >> .env
+          echo "JWT_SECRET=${{ secrets.JWT_SECRET }}" >> .env
+          echo "EMAIL=${{ secrets.EMAIL }}" >> .env
+          echo "EMAIL_PASS=${{ secrets.EMAIL_PASS }}" >> .env
+          echo "GOOGLE_CLIENT_ID=${{  secrets.GOOGLE_CLIENT_ID }}" >> .env
+          echo "GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET }}" >> .env
+          echo "GOOGLE_REFRESH_TOKEN=${{ secrets.GOOGLE_REFRESH_TOKEN }}" >> .env
+
+      - name: Build backend
+        run: npm run build
+
+      - name: Copy .env into dist
+        run: cp .env dist/.env
+
+      - name: Copy files to VPS
+        uses: appleboy/scp-action@v1
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          port: ${{ secrets.PORT }}
+          source: "."
+          target: "/var/www/portfolio/backend"
+
+      - name: Deploy on VPS
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          port: ${{ secrets.PORT }}
+          script: |
+            echo "Deploying to production..."
+            cd /var/www/portfolio/backend/dist
+            export PATH=$PATH:/home/ubuntu/.nvm/versions/node/v22.18.0/bin
+            pm2 reload portfolio --update-env

@@ -1,0 +1,66 @@
+@import "tailwindcss";
+@config "../tailwind.config.ts";
+
+@font-face {
+	font-family: "Fira Code";
+	src:
+		url("/fonts/FiraCode-Regular.woff2") format("woff2"),
+		url("/fonts/FiraCode-Regular.woff") format("woff");
+	font-weight: 400;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: "Poppins";
+	src:
+		url("/fonts/Poppins-Medium.woff2") format("woff2"),
+		url("/fonts/Poppins-Medium.woff") format("woff");
+	font-weight: 500;
+	font-style: normal;
+	font-display: swap;
+}
+
+:root {
+	--background-1: #ffffff;
+	--background-2: #f5f5f5;
+	--background-content: #fafafa;
+	--foreground-1: #121212;
+	--foreground-2: #424242;
+	--accent-color-1: #9c27b0;
+	--accent-color-2: #ba68c8;
+	--opposite-background-1: #121212;
+	--opposite-background-2: #1e1e1e;
+	--opposite-foreground-1: #ffffff;
+	--opposite-foreground-2: #e0e0e0;
+	--error-color: #d32f2f;
+	--error-label: #b71c1c;
+	--error-background: #ffebee;
+}
+
+html.dark {
+	--background-1: #121212;
+	--background-2: #1e1e1e;
+	--background-content: #171717;
+	--foreground-1: #ffffff;
+	--foreground-2: #e0e0e0;
+	--accent-color-1: #00ced1;
+	--accent-color-2: #00bfff;
+	--opposite-background-1: #ffffff;
+	--opposite-background-2: #f5f5f5;
+	--opposite-foreground-1: #121212;
+	--opposite-foreground-2: #424242;
+	--error-color: #ef5350;
+	--error-label: #ff6f6f;
+	--error-background: #2a0000;
+}
+
+body {
+	background: var(--background-2);
+	color: var(--foreground-1);
+}
+
+input:-webkit-autofill {
+	-webkit-box-shadow: 0 0 0 100px var(--opposite-foreground-2) inset;
+	-webkit-text-fill-color: var(--foreground-1);
+}

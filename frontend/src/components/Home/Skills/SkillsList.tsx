@@ -1,0 +1,46 @@
+import { AnimatePresence, motion } from "framer-motion";
+import { useTheme } from "next-themes";
+import { useTranslation } from "react-i18next";
+import type { ISkill } from "../../../types";
+
+type SkillsProps = {
+	skills: ISkill[];
+};
+
+const SkillsList = ({ skills }: SkillsProps) => {
+	const { resolvedTheme } = useTheme();
+	const { i18n } = useTranslation();
+	const resolved = i18n.resolvedLanguage?.toLowerCase() ?? "en";
+	const language = resolved.startsWith("pl") ? "pl" : "en";
+
+	if (!skills) return null;
+
+	return skills.map((skill, index) => (
+		<AnimatePresence key={`${index} - ${skill.category.en}`}>
+			<motion.div
+				initial={{ opacity: 0 }}
+				animate={{ opacity: 1 }}
+				exit={{ opacity: 0 }}
+				className="flex flex-wrap justify-center items-center gap-6 md:gap-12 px-2 pb-2"
+			>
+				<motion.div
+					whileHover={{
+						y: -5,
+						boxShadow: "0 0 10px 2px var(--accent-color-1)",
+						backgroundColor: "var(--background-1)",
+						outlineColor: "var(--accent-color-2)",
+					}}
+					className="flex flex-col gap-4 p-6 h-[12em] w-[20em] outline-2 outline-accent-theme-1 bg-bg-content rounded-xl cursor-pointer"
+					key={resolvedTheme}
+				>
+					<h3 className="pt-2 text-accent-theme-1 font-bold text-xl ">
+						{skill.category?.[language] ?? skill.category?.en ?? "—"}
+					</h3>
+					<p>{skill.content?.[language] ?? skill.content?.en ?? ""}</p>
+				</motion.div>
+			</motion.div>
+		</AnimatePresence>
+	));
+};
+
+export default SkillsList;

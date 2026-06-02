@@ -1,0 +1,55 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - main
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Biome check (lint + format)
+        run: npx biome check .
+
+      - name: Create env file
+        run: |
+          echo "VITE_API_URL=${{ secrets.VITE_API_URL }}" >> .env
+
+      - name: Build project
+        run: npm run build
+
+      - name: Prepare folder for deploy
+        run: cp -r dist frontend
+
+      - name: Archive dist
+        run: tar -czf frontend.tar.gz frontend
+
+      - name: Copy files to VPS
+        uses: appleboy/scp-action@v1
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          port: ${{ secrets.PORT }}
+          source: "frontend.tar.gz"
+          target: '/var/www/portfolio'
+
+      - name: Deploy on VPS
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          port: ${{ secrets.PORT }}
+          script: |
+            echo "Deploying to production..."
+            cd /var/www/portfolio
+            tar -xzf frontend.tar.gz
+            rm frontend.tar.gz

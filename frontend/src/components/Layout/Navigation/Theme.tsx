@@ -1,0 +1,42 @@
+import { motion } from "framer-motion";
+import { useTheme } from "next-themes";
+import { useEffect, useState } from "react";
+
+const Theme = () => {
+	const [mounted, setMounted] = useState<boolean>(false);
+	const { theme, setTheme } = useTheme();
+
+	useEffect((): void => {
+		setMounted(true);
+	}, []);
+	if (!mounted) {
+		return null;
+	}
+	const changeThemeHandler = (): void => {
+		setTheme((prevTheme): string => (prevTheme === "dark" ? "light" : "dark"));
+	};
+	const themeIcon = {
+		icon: theme === "dark" ? "sun" : "moon",
+		alt: theme === "dark" ? "Sun icon" : "Moon icon",
+	};
+
+	return (
+		<motion.button
+			className="flex p-3 sm:p-4 bg-bg-theme-2 rounded-[50%] border-2 border-accent-theme-1 cursor-pointer select-none"
+			onClick={changeThemeHandler}
+			whileHover={{ scale: 1.1, backgroundColor: "var(--accent-color-1)" }}
+			key={theme}
+			aria-label="Theme Switcher"
+		>
+			<img
+				src={`/icons/${theme === "dark" ? "sun" : "moon"}.svg`}
+				alt={themeIcon.alt}
+				height={20}
+				width={20}
+				className="h-[20px] w-[20px]"
+			/>
+		</motion.button>
+	);
+};
+
+export default Theme;

@@ -1,0 +1,46 @@
+{
+	"name": "portfolio-backend",
+	"version": "1.0.0",
+	"scripts": {
+		"build": "tsc",
+		"build:watch": "tsc -w",
+		"biome:lint": "biome lint .",
+		"biome:check": "biome check .",
+		"biome:format": "biome format . --write",
+		"start": "node dist/index.js",
+		"dev": "nodemon src/index.ts"
+	},
+	"packageManager": "pnpm@10.30.0",
+	"engines": {
+		"node": ">=22"
+	},
+	"main": "dist/index.js",
+	"dependencies": {
+		"@biomejs/biome": "^2.4.2",
+		"axios": "^1.13.5",
+		"bcryptjs": "^3.0.3",
+		"cookie-parser": "^1.4.7",
+		"cors": "^2.8.6",
+		"dotenv": "^17.3.1",
+		"express": "^5.2.1",
+		"jsonwebtoken": "^9.0.3",
+		"mongodb": "^6.21.0",
+		"mongoose": "^8.23.0",
+		"nodemailer": "^7.0.13"
+	},
+	"devDependencies": {
+		"@types/axios": "^0.9.36",
+		"@types/cookie-parser": "^1.4.10",
+		"@types/cors": "^2.8.19",
+		"@types/dotenv": "^6.1.1",
+		"@types/express": "^5.0.6",
+		"@types/node": "^24.10.13",
+		"@types/nodemailer": "^6.4.22",
+		"@types/react-router": "^5.1.20",
+		"nodemon": "^3.1.11",
+		"ts-node": "^10.9.2",
+		"tsc-watch": "^7.2.0",
+		"typescript": "^5.9.3"
+	},
+	"private": true
+}

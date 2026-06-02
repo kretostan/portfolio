@@ -1,0 +1,55 @@
+{
+	"nav": {
+		"home": "Home",
+		"about": "About",
+		"skills": "Skills",
+		"projects": "Projects",
+		"contact": "Contact"
+	},
+	"home": {
+		"title-1": "Hello",
+		"title-2": "I’m Jakub Kret",
+		"subtitle": "Full-stack developer creating modern applications and digital solutions that make everyday life easier.",
+		"button": "View My Work"
+	},
+	"about": {
+		"title": "About Me",
+		"subtitle-1": "Who I Am",
+		"text-1": [
+			"I'm a passionate developer with a keen eye for design. I combine technical expertise with creative thinking to build digital solutions that make an impact.",
+			"I'm enthusiastic about web development and constantly learning new technologies. I'm committed to writing clean code and creating exceptional user experiences.",
+			"When I'm not coding, you'll find me exploring new technologies, contributing to open source, or sharing knowledge with the community."
+		],
+		"subtitle-2": "My approach",
+		"text-2": [
+			"User-Focused: Every decision is made with the end user in mind, ensuring intuitive and enjoyable interactions.",
+			"Quality First: I believe in writing maintainable, scalable code that stands the test of time.",
+			"Continuous Learning: Technology evolves rapidly, and I stay updated with the latest trends and best practices."
+		],
+		"swipeHint": "Swipe to see more"
+	},
+	"skills": {
+		"title": "Skills & Expertise"
+	},
+	"projects": {
+		"title": "Featured Projects",
+		"pageBtn": "View Project"
+	},
+	"footer": {
+		"rights": "All rights reserved."
+	},
+	"contact": {
+		"title": "Get In Touch",
+		"subtitle": "Have a a project in mind? Let's talk about it!",
+		"button": "Send Message",
+		"labelName": "Full Name",
+		"labelSubject": "Subject",
+		"labelMessage": "Message",
+		"messagePlaceholder": "Put your message...",
+		"modalMessage": "Dziękuję za wiadomość. Odpowiem tak szybko, jak to możliwe.",
+		"belowForm-1": "Location",
+		"belowForm-1-1": "Warsaw, Poland",
+		"belowForm-2": "Response Time",
+		"belowForm-2-2": "hours"
+	}
+}

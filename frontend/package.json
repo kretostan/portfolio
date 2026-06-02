@@ -1,0 +1,47 @@
+{
+	"name": "kretostan-portfolio",
+	"private": true,
+	"version": "1.0.2",
+	"type": "module",
+	"packageManager": "pnpm@10.30.0",
+	"engines": {
+		"node": ">=22"
+	},
+	"scripts": {
+		"dev": "vite --host 0.0.0.0",
+		"build": "tsc -b && vite build",
+		"biome:lint": "biome lint .",
+		"biome:check": "biome check .",
+		"biome:format": "biome format . --write",
+		"preview": "vite preview"
+	},
+	"dependencies": {
+		"@biomejs/biome": "2.3.15",
+		"@tailwindcss/vite": "^4.1.18",
+		"axios": "^1.13.5",
+		"bcryptjs": "^3.0.3",
+		"framer-motion": "^12.34.2",
+		"i": "^0.3.7",
+		"i18next": "^25.8.11",
+		"i18next-browser-languagedetector": "^8.2.1",
+		"next-themes": "^0.4.6",
+		"react": "^19.2.4",
+		"react-dom": "^19.2.4",
+		"react-i18next": "^15.7.4",
+		"react-router": "^7.13.0"
+	},
+	"devDependencies": {
+		"@types/react": "^19.2.14",
+		"@types/react-dom": "^19.2.3",
+		"@types/react-router": "^5.1.20",
+		"@vitejs/plugin-react-swc": "^3.11.0",
+		"sharp": "^0.34.5",
+		"svgo": "^4.0.0",
+		"tailwindcss": "^4.1.18",
+		"typescript": "^5.9.3",
+		"vite": "^6.4.1",
+		"vite-plugin-image-optimizer": "^2.0.3",
+		"vite-plugin-sitemap": "^0.8.2",
+		"vite-plugin-svgr": "^4.5.0"
+	}
+}
