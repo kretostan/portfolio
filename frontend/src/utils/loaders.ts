@@ -1,29 +1,27 @@
 import axios from "axios";
 
 const loadSkills = async () => {
-	const response = await axios.get("/api/portfolio/skills");
-	if (response.status !== 200) {
-		throw new Error("Failed to load skills");
+	try {
+		const response = await axios.get("/api/portfolio/skills");
+		return response.data.skills;
+	} catch {
+		return { error: true };
 	}
-	return response.data;
 };
 
 export const skillsLoader = async () => {
-	return {
-		skills: await loadSkills(),
-	};
+	return await loadSkills();
 };
 
 const loadProjects = async () => {
-	const response = await axios.get(`/api/portfolio/projects`);
-	if (response.status !== 200) {
-		throw new Error("Failed to load projects");
+	try {
+		const response = await axios.get(`/api/portfolio/projects`);
+		return response.data.projects;
+	} catch {
+		return { error: true };
 	}
-	return response.data.projects;
 };
 
 export const projectsLoader = async () => {
-	return {
-		projects: await loadProjects(),
-	};
+	return await loadProjects();
 };
