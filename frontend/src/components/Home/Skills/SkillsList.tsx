@@ -4,18 +4,19 @@ import { useTranslation } from "react-i18next";
 import type { ISkill } from "../../../types";
 
 type SkillsProps = {
-	skills: ISkill[];
+	skills: ISkill[] | { error: boolean };
 };
 
 const SkillsList = ({ skills }: SkillsProps) => {
 	const { resolvedTheme } = useTheme();
-	const { i18n } = useTranslation();
+	const { t, i18n } = useTranslation();
 	const resolved = i18n.resolvedLanguage?.toLowerCase() ?? "en";
 	const language = resolved.startsWith("pl") ? "pl" : "en";
 
-	if (!skills) return null;
+	if ("error" in skills) return <p>{t("skills.error")}</p>;
+	if (!skills.length) return <p>{t("skills.empty")}</p>;
 
-	return skills.map((skill, index) => (
+	return skills.map((skill, index: number) => (
 		<AnimatePresence key={`${index} - ${skill.category.en}`}>
 			<motion.div
 				initial={{ opacity: 0 }}

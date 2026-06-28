@@ -4,17 +4,18 @@ import { useTranslation } from "react-i18next";
 import type { IProject } from "../../../types";
 
 type ProjectsProps = {
-	data: { projects: IProject[] };
+	projects: IProject[] | { error: boolean };
 };
 
-const ProjectsList = ({ data }: ProjectsProps) => {
+const ProjectsList = ({ projects }: ProjectsProps) => {
 	const { t, i18n } = useTranslation();
 	const { resolvedTheme } = useTheme();
 	const language = i18n.language as "pl" | "en";
 
-	if (!data?.projects?.length) return null;
+	if ("error" in projects) return <p>{t("projects.error")}</p>;
+	if (!projects.length) return <p>{t("projects.empty")}</p>;
 
-	return data.projects.map((project) => (
+	return projects.map((project) => (
 		<motion.div
 			whileHover={{
 				y: -5,
