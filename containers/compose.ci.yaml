@@ -14,10 +14,10 @@ services:
         condition: service_healthy
 
   mongodb:
-    image: mongo:8.0
+    image: mongo:7.0
     environment:
-      MONGO_INIT_ROOT_USERNAME: ci
-      MONGO_INIT_ROOT_PASSWORD: ci-password
+      MONGO_INITDB_ROOT_USERNAME: ci
+      MONGO_INITDB_ROOT_PASSWORD: ci-password
     healthcheck:
       test:
         - CMD
