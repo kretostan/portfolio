@@ -1,5 +1,5 @@
 {
-	"name": "portfolio-backend",
+	"name": "backend",
 	"version": "1.0.0",
 	"scripts": {
 		"build": "tsc",
@@ -8,20 +8,20 @@
 		"biome:check": "biome check .",
 		"biome:format": "biome format . --write",
 		"start": "node dist/index.js",
-		"dev": "nodemon src/index.ts"
+		"dev": "NODE_ENV=development nodemon src/index.ts"
 	},
-	"packageManager": "pnpm@10.30.0",
+	"packageManager": "pnpm@11.7.0",
 	"engines": {
 		"node": ">=22"
 	},
 	"main": "dist/index.js",
 	"dependencies": {
-		"@biomejs/biome": "^2.4.2",
+		"@biomejs/biome": "^2.5.14",
 		"axios": "^1.13.5",
 		"bcryptjs": "^3.0.3",
 		"cookie-parser": "^1.4.7",
 		"cors": "^2.8.6",
-		"dotenv": "^17.3.1",
+		"dotenv": "^18.0.8",
 		"express": "^5.2.1",
 		"jsonwebtoken": "^9.0.3",
 		"mongodb": "^6.21.0",
@@ -32,7 +32,7 @@
 		"@types/axios": "^0.9.36",
 		"@types/cookie-parser": "^1.4.10",
 		"@types/cors": "^2.8.19",
-		"@types/dotenv": "^6.1.1",
+		"@types/dotenv": "^8.2.3",
 		"@types/express": "^5.0.6",
 		"@types/node": "^24.10.13",
 		"@types/nodemailer": "^6.4.22",
