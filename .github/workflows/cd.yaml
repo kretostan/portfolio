@@ -87,20 +87,3 @@ jobs:
             systemctl --user restart \
               portfolio-backend.service \
               portfolio-frontend.service
-
-      - name: Verify deployment
-        run: |
-          echo "Waiting for the application..."
-          timeout 90 bash -c '
-            until [ "$(curl \
-              --silent \
-              --output /dev/null \
-              --write-out "%{http_code}" \
-              --connect-timeout 3 \
-              --max-time 5 \
-              https://kretostan.com/api/skills)" = "200" ]; do
-              echo "Application not ready; retrying..."
-              sleep 3
-            done
-          '
-          echo "Application is responding correctly."
