@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import type { Request, Response } from "express";
 import { Skill } from "../models/skill";
 
 export const loadSkills = async (_req: Request, res: Response) => {

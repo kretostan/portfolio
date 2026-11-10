@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import type { Request, Response } from "express";
 
 import { contactHtml, contactText } from "../emails/contact";
 
@@ -40,7 +40,7 @@ export const sendMail = async (
 		}
 		await transporter.sendMail({
 			from: `Kretostan Portfolio <${process.env.EMAIL}>`,
-			to: `Jakub Kret <${process.env.EMAIL}>`,
+			to: `${process.env.EMAIL_USER} <${process.env.EMAIL}>`,
 			replyTo: `${name} <${email}>`,
 			subject: subject,
 			text: message,
@@ -52,7 +52,7 @@ export const sendMail = async (
 		await transporter.sendMail({
 			from: `Kretostan Portfolio <${process.env.EMAIL}>`,
 			to: `${name} <${email}>`,
-			replyTo: `Jakub Kret <${process.env.EMAIL}>`,
+			replyTo: `${process.env.EMAIL_USER} <${process.env.EMAIL}>`,
 			subject: "Potwierdzenie / Confirmation",
 			text: contactText(name),
 			html: contactHtml(name),
