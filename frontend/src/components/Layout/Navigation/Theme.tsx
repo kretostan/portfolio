@@ -15,10 +15,6 @@ const Theme = () => {
 	const changeThemeHandler = (): void => {
 		setTheme((prevTheme): string => (prevTheme === "dark" ? "light" : "dark"));
 	};
-	const themeIcon = {
-		icon: theme === "dark" ? "sun" : "moon",
-		alt: theme === "dark" ? "Sun icon" : "Moon icon",
-	};
 
 	return (
 		<motion.button
@@ -30,7 +26,7 @@ const Theme = () => {
 		>
 			<img
 				src={`/icons/${theme === "dark" ? "sun" : "moon"}.svg`}
-				alt={themeIcon.alt}
+				alt=""
 				height={20}
 				width={20}
 				className="h-[20px] w-[20px]"

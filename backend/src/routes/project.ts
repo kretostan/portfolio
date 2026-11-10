@@ -5,6 +5,6 @@ import { loadProjects } from "../controllers/project";
 // eslint-disable-next-line new-cap
 const router = Router();
 
-router.get("/projects", loadProjects);
+router.get("/api/projects", loadProjects);
 
 export default router;

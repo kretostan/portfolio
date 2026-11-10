@@ -19,7 +19,7 @@ const Skills = () => {
 			<div className="flex flex-wrap justify-center items-center gap-12 mt-12 px-6 max-w-[1400px] w-full lg:text-lg">
 				<Suspense fallback={<Spinner content="skills" />}>
 					<Await resolve={skills}>
-						{(resolvedSkills) => <SkillsList skills={resolvedSkills.skills} />}
+						{(resolvedSkills) => <SkillsList skills={resolvedSkills} />}
 					</Await>
 				</Suspense>
 			</div>

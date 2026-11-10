@@ -29,11 +29,15 @@
 		"swipeHint": "Przesuń, aby zobaczyć więcej"
 	},
 	"skills": {
-		"title": "Umiejętności i Specjalizacje"
+		"title": "Umiejętności i Specjalizacje",
+		"error": "Nie udało się załadować umiejętności",
+		"empty": "Brak umiejętności do wyświetlenia"
 	},
 	"projects": {
 		"title": "Wybrane Projekty",
-		"pageBtn": "Pokaż projekt"
+		"pageBtn": "Pokaż projekt",
+		"error": "Nie udało się załadować projektów",
+		"empty": "Brak projektów do wyświetlenia"
 	},
 	"footer": {
 		"rights": "Wszelkie prawa zastrzeżone."

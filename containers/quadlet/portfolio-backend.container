@@ -1,0 +1,15 @@
+[Unit]
+Description=Portfolio Backend
+
+[Container]
+Image=ghcr.io/kretostan/portfolio/backend:__IMAGE_SHA__
+ContainerName=portfolio-backend
+Network=proxy.network
+NetworkAlias=portfolio-backend
+EnvironmentFile=/opt/apps/portfolio/backend.env
+
+[Service]
+Restart=always
+
+[Install]
+WantedBy=default.target

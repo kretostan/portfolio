@@ -1,0 +1,14 @@
+[Unit]
+Description=Portfolio Frontend
+
+[Container]
+Image=ghcr.io/kretostan/portfolio/frontend:__IMAGE_SHA__
+ContainerName=portfolio-frontend
+Network=proxy.network
+NetworkAlias=portfolio-frontend
+
+[Service]
+Restart=always
+
+[Install]
+WantedBy=default.target

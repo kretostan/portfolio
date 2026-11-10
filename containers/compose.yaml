@@ -1,0 +1,30 @@
+services:
+  frontend:
+    image: ghcr.io/kretostan/portfolio/frontend:${IMAGE_SHA:?IMAGE_SHA is required}
+    ports:
+      - "${FRONTEND_PORT:-8080}:80"
+    depends_on:
+      backend:
+        condition: service_healthy
+
+  backend:
+    image: ghcr.io/kretostan/portfolio/backend:${IMAGE_SHA:?IMAGE_SHA is required}
+    env_file:
+      - path: ../backend/.env
+    ports:
+      - "${BACKEND_PORT:-3000}:3000"
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - >-
+          node -e 'require("http").get("http://localhost:3000/api/health", (res) => { 
+            process.exit(res.statusCode === 200 ? 0 : 1)
+          }).on("error", () => process.exit(1))'
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+    networks:
+      default:
+        aliases:
+          - portfolio-backend

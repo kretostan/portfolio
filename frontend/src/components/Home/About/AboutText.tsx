@@ -64,12 +64,12 @@ const AboutText = () => {
 						{t(`about.subtitle-${currentText}`)}
 					</h3>
 					<div className="flex flex-col gap-6" key={currentText}>
-						{texts.map((text, index) => (
+						{texts.map((text) => (
 							<motion.p
 								initial={{ opacity: 0 }}
 								animate={{ opacity: 1 }}
 								className=""
-								key={`${index} - ${i18n.language}`}
+								key={text}
 							>
 								{text}
 							</motion.p>

@@ -29,11 +29,15 @@
 		"swipeHint": "Swipe to see more"
 	},
 	"skills": {
-		"title": "Skills & Expertise"
+		"title": "Skills & Expertise",
+		"error": "Failed to load skills",
+		"empty": "No skills listed yet"
 	},
 	"projects": {
 		"title": "Featured Projects",
-		"pageBtn": "View Project"
+		"pageBtn": "View Project",
+		"error": "Failed to load projects",
+		"empty": "No projects to show yet"
 	},
 	"footer": {
 		"rights": "All rights reserved."

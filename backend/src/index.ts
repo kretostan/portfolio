@@ -1,6 +1,9 @@
 import cors from "cors";
+import dotenv from "dotenv";
 import express from "express";
-import "./util/dotenv";
+
+const mode = process.env.NODE_ENV;
+dotenv.config({ path: mode === "development" ? ".env.dev" : ".env" });
 
 import contactRouter from "./routes/contact";
 import projectRouter from "./routes/project";
@@ -8,7 +11,7 @@ import skillRouter from "./routes/skill";
 import connectToDatabase from "./util/database";
 
 const app = express();
-const port = Number(process.env.PORT) || 3000;
+const port = Number(process.env.PORT);
 
 const allowedOrigins = [
 	"http://localhost:5173",
@@ -36,10 +39,18 @@ app.use(skillRouter);
 app.use(projectRouter);
 app.use(contactRouter);
 
-connectToDatabase();
+app.get("/api/health", (_req, res) => res.json({ status: "OK" }));
 
-app.get("/health", (_req, res) => res.json({ status: "OK" }));
+async function start(): Promise<void> {
+	try {
+		await connectToDatabase();
+		app.listen(port || 3000, () => {
+			console.log("Server running on port ", port || 3000);
+		});
+	} catch (error) {
+		console.error("Backend startup failed: ", error);
+		process.exit(1);
+	}
+}
 
-app.listen(port || 3000, () => {
-	console.log(`Server running on port ${port}`);
-});
+void start();

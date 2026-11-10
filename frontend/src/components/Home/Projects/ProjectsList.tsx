@@ -4,17 +4,18 @@ import { useTranslation } from "react-i18next";
 import type { IProject } from "../../../types";
 
 type ProjectsProps = {
-	data: { projects: IProject[] };
+	projects: IProject[] | { error: boolean };
 };
 
-const ProjectsList = ({ data }: ProjectsProps) => {
+const ProjectsList = ({ projects }: ProjectsProps) => {
 	const { t, i18n } = useTranslation();
 	const { resolvedTheme } = useTheme();
 	const language = i18n.language as "pl" | "en";
 
-	if (!data?.projects?.length) return null;
+	if ("error" in projects) return <p>{t("projects.error")}</p>;
+	if (!projects.length) return <p>{t("projects.empty")}</p>;
 
-	return data.projects.map((project) => (
+	return projects.map((project) => (
 		<motion.div
 			whileHover={{
 				y: -5,
@@ -37,14 +38,14 @@ const ProjectsList = ({ data }: ProjectsProps) => {
 				</h3>
 				<p className="h-[90px] text-sm">{project.description[language]}</p>
 				<div className="flex gap-2">
-					{project.stack.map((tech, index) => (
+					{project.stack.map((tech) => (
 						<motion.p
 							whileHover={{
 								color: "var(--opposite-foreground-1)",
 								backgroundColor: "var(--accent-color-1)",
 							}}
 							className="px-4 py-1 bg-bg-theme-2 text-accent-theme-1 border border-accent-theme-1 rounded-2xl text-sm"
-							key={`${index} ${resolvedTheme}`}
+							key={`${tech} ${resolvedTheme}`}
 						>
 							{tech}
 						</motion.p>
