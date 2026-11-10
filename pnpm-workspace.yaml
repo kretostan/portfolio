@@ -2,6 +2,18 @@ packages:
   - "frontend"
   - "backend"
 allowBuilds:
-  '@swc/core': set this to true or false
-  esbuild: set this to true or false
-  sharp: set this to true or false
+  "@swc/core": true
+  esbuild: true
+  sharp: true
+overrides:
+  nodemailer@<8.0.4: ^8.0.4
+  nodemailer@<9.1.0: ^9.1.0
+  nodemailer@<=8.0.4: ^8.0.5
+  nodemailer@<=8.0.7: ^8.0.8
+  nodemailer@<=8.0.8: ^8.0.9
+  nodemailer@<=9.0.0: ^9.0.1
+  nodemailer@<=9.1.0: ^9.1.1
+  nodemailer@>=5.0.0 <10.0.2: ^10.0.2
+  nodemailer@>=6.9.16 <9.1.0: ^9.1.0
+  sharp@<0.35.0: ^0.35.0
+  sharp@<0.35.4: ^0.35.4

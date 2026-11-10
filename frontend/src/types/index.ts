@@ -11,6 +11,7 @@ export interface IProject {
 }
 
 export interface ISkill {
+	_id: string;
 	category: {
 		en: string;
 		pl: string;

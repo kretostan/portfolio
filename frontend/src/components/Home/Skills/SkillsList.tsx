@@ -16,8 +16,8 @@ const SkillsList = ({ skills }: SkillsProps) => {
 	if ("error" in skills) return <p>{t("skills.error")}</p>;
 	if (!skills.length) return <p>{t("skills.empty")}</p>;
 
-	return skills.map((skill, index: number) => (
-		<AnimatePresence key={`${index} - ${skill.category.en}`}>
+	return skills.map((skill) => (
+		<AnimatePresence key={`${skill._id} - ${skill.category.en}`}>
 			<motion.div
 				initial={{ opacity: 0 }}
 				animate={{ opacity: 1 }}

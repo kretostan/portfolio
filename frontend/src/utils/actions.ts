@@ -5,7 +5,7 @@ export const contactAction = async ({ request }: { request: Request }) => {
 	const jsonData = Object.fromEntries(formData.entries());
 	try {
 		const response = await axios.post(
-			`${import.meta.env.VITE_API_URL}/send-mail`,
+			"/api/send-mail",
 			JSON.stringify(jsonData),
 			{
 				headers: { "Content-Type": "application/json" },

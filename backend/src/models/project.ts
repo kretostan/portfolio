@@ -1,5 +1,5 @@
-import { Document, model, Schema } from "mongoose";
-import { IProject } from "../types";
+import { type Document, model, Schema } from "mongoose";
+import type { IProject } from "../types";
 
 const projectSchema = new Schema<IProject & Document>({
 	title: String,
