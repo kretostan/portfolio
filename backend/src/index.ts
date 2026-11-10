@@ -2,8 +2,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import express from "express";
 
-const mode = process.env.NODE_ENV;
-dotenv.config({ path: mode === "development" ? ".env.dev" : ".env" });
+if (process.env.NODE_ENV === "development") dotenv.config({ path: ".env.dev" });
 
 import contactRouter from "./routes/contact";
 import projectRouter from "./routes/project";
