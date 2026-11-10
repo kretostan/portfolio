@@ -1,0 +1,30 @@
+services:
+  frontend:
+    image: ghcr.io/kretostan/portfolio/frontend:${IMAGE_SHA:?IMAGE_SHA is required}
+
+  backend:
+    image: ghcr.io/kretostan/portfolio/backend:${IMAGE_SHA:?IMAGE_SHA is required}
+    env_file: !reset []
+    environment:
+      PORT: 3000
+      NODE_ENV: production
+      MONGO_URI: mongodb://ci:ci-password@mongodb:27017/portfolio-ci?authSource=admin
+    depends_on:
+      mongodb:
+        condition: service_healthy
+
+  mongodb:
+    image: mongo:8.0
+    environment:
+      MONGO_INIT_ROOT_USERNAME: ci
+      MONGO_INIT_ROOT_PASSWORD: ci-password
+    healthcheck:
+      test:
+        - CMD
+        - mongosh
+        - --quiet
+        - --eval
+        - "db.adminCommand('ping').ok"
+      interval: 10s
+      timeout: 5s
+      retries: 5
