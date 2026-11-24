@@ -83,6 +83,7 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           port: ${{ secrets.VPS_PORT }}
           fingerprint: ${{ secrets.SSH_FINGERPRINT }}
+          envs: IMAGE_SHA
           script: |
             set -eu
             podman pull ghcr.io/kretostan/portfolio/backend:${IMAGE_SHA}
