@@ -75,6 +75,8 @@ jobs:
 
       - name: Deploy via SSH (Podman)
         uses: appleboy/ssh-action@v1
+        env:
+          IMAGE_SHA: ${{ steps.version.outputs.sha }}
         with:
           host: ${{ vars.VPS_HOST }}
           username: ${{ secrets.VPS_USER }}
@@ -83,6 +85,8 @@ jobs:
           fingerprint: ${{ secrets.SSH_FINGERPRINT }}
           script: |
             set -eu
+            podman pull ghcr.io/kretostan/portfolio/backend:${IMAGE_SHA}
+            podman pull ghcr.io/kretostan/portfolio/frontend:${IMAGE_SHA}
             systemctl --user daemon-reload
             systemctl --user restart \
               portfolio-backend.service \
