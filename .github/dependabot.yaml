@@ -1,0 +1,44 @@
+version: 2
+
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+    target-branch: "develop"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "08:00"
+      timezone: "Europe/Warsaw"
+    open-pull-requests-limit: 4
+    groups:
+      npm-updates:
+        patterns:
+          - "*"
+
+  - package-ecosystem: "docker"
+    directory: "/containers"
+    target-branch: "develop"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "08:00"
+      timezone: "Europe/Warsaw"
+    open-pull-requests-limit: 4
+    groups:
+      docker-updates:
+        patterns:
+          - "*"
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    target-branch: "develop"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "08:00"
+      timezone: "Europe/Warsaw"
+    open-pull-requests-limit: 4
+    groups:
+      actions-updates:
+        patterns:
+          - "*"
