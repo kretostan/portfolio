@@ -79,9 +79,14 @@ jobs:
     runs-on: ubuntu-latest
     needs: [lint, compile]
 
+    strategy:
+      matrix:
+        app: [backend, frontend]
+
     permissions:
       contents: read
       packages: write
+      security-events: write
 
     steps:
       - name: Check out the code
@@ -97,21 +102,60 @@ jobs:
       - name: Setup Docker Buildx
         uses: docker/setup-buildx-action@v4
 
-      - name: Build and push Backend
+      - name: Build ${{ matrix.app }}
         uses: docker/build-push-action@v7
         with:
           context: .
-          file: containers/Dockerfile.backend
-          push: true
-          tags: ghcr.io/kretostan/portfolio/backend:${{ github.sha }}
+          file: containers/Dockerfile.${{ matrix.app }}
+          pull: true
+          load: true
+          tags: ghcr.io/${{ github.repository }}/${{ matrix.app }}:${{ github.sha }}
 
-      - name: Build and push Frontend
-        uses: docker/build-push-action@v7
+      - name: Trivy vulnerability report
+        uses: aquasecurity/trivy-action@v0.36.0
         with:
-          context: .
-          file: containers/Dockerfile.frontend
-          push: true
-          tags: ghcr.io/kretostan/portfolio/frontend:${{ github.sha }}
+          scan-type: "image"
+          image-ref: ghcr.io/${{ github.repository }}/${{ matrix.app }}:${{ github.sha }}
+          format: "sarif"
+          output: "trivy-report.sarif"
+          scanners: "vuln"
+          severity: "HIGH,CRITICAL"
+          limit-severities-for-sarif: true
+          ignore-unfixed: false
+          exit-code: "0"
+
+      - name: Upload Trivy report
+        uses: github/codeql-action/upload-sarif@v4
+        with:
+          sarif-file: "trivy-report.sarif"
+          category: trivy-${{ matrix.app }}
+
+      - name: Trivy vulnerability check
+        uses: aquasecurity/trivy-action@v0.36.0
+        with:
+          scan-type: "image"
+          image-ref: ghcr.io/${{ github.repository }}/${{ matrix.app }}:${{ github.sha }}
+          format: "sarif"
+          output: "trivy-check.sarif"
+          scanners: "vuln"
+          severity: "CRITICAL"
+          limit-severities-for-sarif: true
+          ignore-unfixed: false
+          exit-code: 1
+          skip-setup-trivy: true
+
+      - name: Push ${{ matrix.app }} image
+        run: |
+          docker push ghcr.io/${{ github.repository }}/${{ matrix.app }}:${{ github.sha }}
+
+  smoke-test:
+    name: Smoke test
+    runs-on: ubuntu-latest
+    needs: [build-and-push]
+
+    steps:
+      - name: Check out the code
+        uses: actions/checkout@v7
 
       - name: Docker Smoke Test (inline)
         env:
